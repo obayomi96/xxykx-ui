@@ -1,68 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# xxykx-ui
 
-## Available Scripts
+This project creates a backend REST APIs and a UI using Node.js with Express as a framework, React.js and Redux for state management and PostgreSQL with sequelize for data persistence.
 
-In the project directory, you can run:
+## Backend:
 
-### `yarn start`
+- A simple comments API that exposes endpoints for CRUD operations.
+- Comments should be able to have replies and all endpoints should be protected
+  (require authentication) except the read comments endpoint.
+- Host app on Heroku.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Frontend:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- A simple UI to consume the endpoints.
+- Host app on Netlify.
 
-### `yarn test`
+## Features
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### API
 
-### `yarn build`
+<li> POST /login</li>
+<li> POST /register</li>
+<li> POST /comments</li>
+<li> GET /comments - (Should return with all replies)</li>
+<li> PATCH /comments/comment_id</li>
+<li> DELETE /comments/comment_id</li>
+<li>POST /comments/:comment_id/replies - (should reply to a comment)</li>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### UI
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+<li> Sign up page.</li>
+<li> Sign in page.</li>
+<li> Comments page with replies. It shouldn’t require authentication to view the comments, but creating, updating and deleting should require authentication.</li>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `yarn eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Clone the repository
+- run `npm install`
+- run `npm run start` to run the app in development mode
+- run migrations `npm run migrate`
+- run seed `npm run seed`
+- Navigate to localhost:xxxx on POSTMAN
+- install POSTMAN app to test API Endpoints (https://www.getpostman.com/apps)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Author
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Martins Obayomi
