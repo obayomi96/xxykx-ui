@@ -6,21 +6,22 @@ const Header = () => {
   return (
     <>
     {
-      authStore.getToken() ?
+      authStore && authStore.getToken() ?
       (
-        <div className="App-header">
-          <div style={{dsiplay: 'flex', alignItems: "center", justifyContent: 'space-between'}}>
-            <h2>Welcome</h2>
-              <h5><Link to='/'>Login</Link></h5>
-              <h5><Link to='/signup'>Signup</Link></h5>
-            </div>
+        <div style={{width: '100%'}} className="App-header">
+          <div>LOGGED IN USER</div>
         </div>
       ) :
       (
-        <div className="App-header">
+        <div  style={{width: '100%', display: 'inline'}} className="App-header">
           <div>
-          <div div>Comments React app</div>
-          <div>COMMENTS LIST</div>
+            <div>
+              <h2>Welcome</h2>
+            </div>
+            <div>
+              <h5><Link to='/'>Login</Link></h5>
+              <h5><Link to='/signup'>Signup</Link></h5>
+            </div>
           </div>
         </div>
       )

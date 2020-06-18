@@ -1,9 +1,12 @@
 import {
   SET_CURRENT_USER,
+  LOADING,
+  NOT_LOADING,
 } from '../actions/actionTypes'
 
 export const initialState = {
   currentUser: {},
+  isLoading: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -12,6 +15,14 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.payload,
+      }
+    case LOADING:
+      return {
+        isLoading: true,
+      }
+    case NOT_LOADING:
+      return {
+        isLoading: false,
       }
     default:
       return state

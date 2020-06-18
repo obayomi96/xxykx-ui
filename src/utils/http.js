@@ -8,7 +8,7 @@ export const setToken = (token) => {
   if (!token) {
     delete http.defaults.headers.common.Authorization
   }
-  http.defaults.headers['user_session_token'] = token
+  http.defaults.headers['user_token'] = token
 }
 
 export default http

@@ -21,8 +21,9 @@ function App() {
         <Switch>
           <ProtectedRoute exact component={Comment} path='/comments' />
           <Route exact path='/' component={Login} />
+          <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
-          <Route path="*" component={Error404} />
+          <Route component={Error404} />
         </Switch>
       </div>
     </BrowserRouter>
