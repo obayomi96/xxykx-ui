@@ -9,17 +9,18 @@ const Header = () => {
       authStore.getToken() ?
       (
         <div className="App-header">
-          <div>WELCOME</div>
+          <div style={{dsiplay: 'flex', alignItems: "center", justifyContent: 'space-between'}}>
+            <h2>Welcome</h2>
+              <h5><Link to='/'>Login</Link></h5>
+              <h5><Link to='/signup'>Signup</Link></h5>
+            </div>
         </div>
       ) :
       (
         <div className="App-header">
           <div>
-            <div style={{dsiplay: 'flex', alignItems: "center", justifyContent: 'space-between'}}>
-            <h2>Comments React app</h2>
-              <h5><Link to='/'>Login</Link></h5>
-              <h5><Link to='/signup'>Signup</Link></h5>
-            </div>
+          <div div>Comments React app</div>
+          <div>COMMENTS LIST</div>
           </div>
         </div>
       )
