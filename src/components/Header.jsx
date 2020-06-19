@@ -8,7 +8,7 @@ const Header = ({history}) => {
     localStorage.clear()
     history.push('/login')
   }
-  
+
   return (
     <>
     {
@@ -26,7 +26,7 @@ const Header = ({history}) => {
               <h2>Welcome</h2>
             </div>
             <div>
-              <h5><Link to='/'>Login</Link></h5>
+              <h5><Link to='/login'>Login</Link></h5>
               <h5><Link to='/signup'>Signup</Link></h5>
             </div>
           </div>

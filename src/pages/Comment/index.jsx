@@ -7,6 +7,7 @@ import  {
   deleteComment,
   replyToComment,
  } from '../../store/actions/commentActions';
+import authStore from '../../utils/auth'
 
 const Comments = ({getComments, comments, replyToComment, isLoading}) => {
   const [commentsList, setCommentsList] = useState([])
@@ -22,7 +23,7 @@ const Comments = ({getComments, comments, replyToComment, isLoading}) => {
       setCommentsList(comments)
     }
     loadData()
-  }, [comments, getComments])
+  }, [comments])
 
 
   const handleChange = (event) => {
@@ -61,11 +62,16 @@ const Comments = ({getComments, comments, replyToComment, isLoading}) => {
                       <p>Author email : {comment.user && comment.user.email}</p>
                       <hr/>
                       <b>REPLIES</b>
-                      <div>
-                        <form onSubmit={addReply}>
-                          <input type="text" name="reply" id={comment.id} onChange={handleChange} value={values.reply} placeholder="Reply to comment" /><button type="submit">Reply</button>
-                        </form>
-                      </div>
+                      {
+                        authStore.getToken() ?
+                        (
+                          <div>
+                            <form onSubmit={addReply}>
+                              <input type="text" name="reply" id={comment.id} onChange={handleChange} value={values.reply} placeholder="Reply to comment" /><button type="submit">Reply</button>
+                            </form>
+                          </div>
+                        ) : ''
+                      }
                       {
                         comment && comment.replies.map((reply) => {
                           return (
