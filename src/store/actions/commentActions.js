@@ -74,15 +74,15 @@ export const deleteComment = (id) => async (dispatch) => {
 
 export const replyToComment = (commentId) => async (dispatch) => {
   try {
-    dispatch({type: LOADING})
+    // dispatch({type: LOADING})
     const data = await commentServices.replyToComment(commentId)
     dispatch({
       type: REPLY_COMMENT,
       payload: data
     })
-    dispatch({type: NOT_LOADING})
+    // dispatch({type: NOT_LOADING})
   } catch(error) {
     throw error
   }
-  dispatch({type: NOT_LOADING})
+  // dispatch({type: NOT_LOADING})
 }

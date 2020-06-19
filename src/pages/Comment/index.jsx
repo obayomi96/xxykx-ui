@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import  { 
   getComments,
@@ -10,6 +10,8 @@ import  {
 import authStore from '../../utils/auth'
 
 const Comments = ({getComments, comments, replyToComment, isLoading}) => {
+
+  const comId = useRef();
   const [commentsList, setCommentsList] = useState([])
   const [values, setValues] = useState({
     reply: '',
@@ -23,7 +25,7 @@ const Comments = ({getComments, comments, replyToComment, isLoading}) => {
       setCommentsList(comments)
     }
     loadData()
-  }, [comments])
+  }, [comments, getComments])
 
 
   const handleChange = (event) => {
@@ -33,9 +35,13 @@ const Comments = ({getComments, comments, replyToComment, isLoading}) => {
 
   const addReply = async (event) => {
     event.preventDefault()
-    replyToComment({
-      content: values.reply,
-    }, event.target.id)
+    console.log('reply WIP')
+    // console.log('reply', values.reply)
+    // if (values.reply !== "") {
+    //   replyToComment({
+    //     content: values.reply
+    //   }, comId.current.id)
+    // }
   }
 
   return (
@@ -67,7 +73,8 @@ const Comments = ({getComments, comments, replyToComment, isLoading}) => {
                         (
                           <div>
                             <form onSubmit={addReply}>
-                              <input type="text" name="reply" id={comment.id} onChange={handleChange} value={values.reply} placeholder="Reply to comment" /><button type="submit">Reply</button>
+                              <input type="text" name="reply" onChange={handleChange} value={values.reply} placeholder="Reply to comment" />
+                              <button type="submit">reply</button>
                             </form>
                           </div>
                         ) : ''
