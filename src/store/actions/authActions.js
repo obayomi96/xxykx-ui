@@ -34,7 +34,7 @@ export const login = (userPayload, history) => async (dispatch) => {
         toast: true
       });
       history.push('/comments')
-      dispatch({ type: NOT_LOADING })
+      return dispatch({ type: NOT_LOADING })
     }
   } catch (error) {
     if (error) {

@@ -2,60 +2,46 @@ import http from '../utils/http'
 
 class CommentService {
 
-  getBrands = async () => {
+  getComments = async () => {
     try {
-      const response = await http.get('brand/read_all')
-      if (response.data.code === 200) {
-        const { data } = response.data
-        return data
+      const response = await http.get('comments');
+      if (response.status === 200) {
+        const { comment } = response.data
+        return comment
       }
     } catch(error) {
       return error
     }
   }
 
-  addBrand = (credentials) => {
-    return new Promise((resolve, reject) => {
-      try {
-        http.post('brand/create', credentials)
-        .then(({ data }) => {
-          if (data.code === 200) {
-            resolve(data.data)
-            return data.data
-          } else {
-            reject({message: data.message})
-          }
-        })
-      } catch (error) {
-        reject({message: 'An unexpected error has occured'})
-        return error.message
+  createComment = async (comment) => {
+    try {
+      const response = await http.post('comments', comment)
+      if (response.status === 200) {
+        const { data } = response.data
+        return data
       }
-    })
+    } catch (error) {
+      return error
+    }
   }
   
-  updateBrand = (credentials) => {
-    return new Promise((resolve, reject) => {
-      try {
-        http.post('brand/update', credentials)
-        .then(({ data }) => {
-          if (data.code === 200) {
-            resolve(data.data)
-            return data.data
-          } else {
-            reject({message: data.message})
-          }
-        })
-      } catch (error) {
-        reject({message: 'An unexpected error has occured'})
-        return error.message
+  updateComment = async (commentId, comment) => {
+    try {
+      const response = await http.patch(`comments/?comment_id=${commentId}`, comment)
+      if (response.status === 200) {
+        const { data } = response.data
+        return data
       }
-    })
+    } catch (error) {
+      return error
+    }
   }
 
-  getBrandById = async (id) => {
+  deleteComment = async (commentId) => {
     try {
-      const response = await http.get(`brand/read/?_id=${id}`)
-      if (response.data.code === 200) {
+      const response = await http.delete(`comments/?comment_id=${commentId}`)
+      if (response.status === 200) {
         const { data } = response.data
         return data[0]
       }
@@ -64,10 +50,10 @@ class CommentService {
     }
   }
 
-  getBrandByStatus = async (status) => {
+  replyToComment = async (comment, commentId) => {
     try {
-      const response = await http.post('brand/read_by_status', status)
-      if (response.data.code === 200) {
+      const response = await http.post(`comments/${commentId}/replies`, comment)
+      if (response.status === 200) {
         const { data } = response.data
         return data
       }

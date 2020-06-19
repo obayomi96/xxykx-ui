@@ -1,15 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import authStore from '../utils/auth';
 
-const Header = () => {
+const Header = ({history}) => {
+
+  const logout = () => {
+    localStorage.clear()
+    history.push('/login')
+  }
+  
   return (
     <>
     {
-      authStore && authStore.getToken() ?
+      authStore.getToken() ?
       (
         <div style={{width: '100%'}} className="App-header">
           <div>LOGGED IN USER</div>
+          <button onClick={logout}>Logout</button>
         </div>
       ) :
       (
@@ -30,4 +37,4 @@ const Header = () => {
   )
 }
 
-export default Header;
+export default withRouter(Header);
