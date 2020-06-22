@@ -1,47 +1,41 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { withRouter, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import  { 
   getComments,
   createComment,
-  updateComment,
   deleteComment,
-  replyToComment,
  } from '../../store/actions/commentActions';
 import authStore from '../../utils/auth'
 
-const Comments = ({getComments, comments, replyToComment, isLoading}) => {
+const Comments = ({getComments, comments, inLoading, isLoading}) => {
 
-  const comId = useRef();
   const [commentsList, setCommentsList] = useState([])
   const [values, setValues] = useState({
-    reply: '',
-    comment: '',
+    content: '',
   })
+  
   useEffect(() => {
     async function loadData() {
       await getComments();
     }
+
     if (comments) {
       setCommentsList(comments)
     }
     loadData()
   }, [comments, getComments])
 
-
   const handleChange = (event) => {
     event.persist()
     setValues(prevState => ({ ...prevState, [event.target.name]: event.target.value }))
   }
 
-  const addReply = async (event) => {
-    event.preventDefault()
-    console.log('reply WIP')
-    // console.log('reply', values.reply)
-    // if (values.reply !== "") {
-    //   replyToComment({
-    //     content: values.reply
-    //   }, comId.current.id)
-    // }
+  const addComment = async (event) => {
+    event.preventDefault();
+    console.log('val', values.content)
+    // const { content } = values;
+    // await createComment(content)
   }
 
   return (
@@ -57,28 +51,36 @@ const Comments = ({getComments, comments, replyToComment, isLoading}) => {
       (
         <div style={{margin: '5px', padding: '5px', display: 'flex', justifyContent: 'space-evenly'}}>
           <h1>Comments page</h1>
+          {
+            authStore.getToken() ?
+            (
+              <div>
+                <form onSubmit={addComment}>
+                  <input type="text" name="content" onChange={handleChange} value={values.content} placeholder="Add comment" />
+                  <button type="submit">{inLoading ? 'Laoding...' : 'Send'}</button>
+                </form>
+              </div>
+            ) : ''
+          }
           <div>
             {
               commentsList && commentsList.map((comment) => {
                 return (
                   <div style={{margin: '5px', padding: '5px', border: '1px solid #ddd', height: 'auto', boxSizing: 'border-box'}} key={comment.id}>
                     <div>
-                      <p>Comment : <b>{comment.content}</b></p>
-                      <p>Author name : {comment.user && comment.user.name}</p>
-                      <p>Author email : {comment.user && comment.user.email}</p>
+                      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <div>
+                          <p>Comment : <b>{comment.content}</b></p>
+                          <p>Author name : {comment.user && comment.user.name}</p>
+                          <p>Author email : {comment.user && comment.user.email}</p>
+                        </div>
+                        <div>
+                          <button>View</button>
+                          <button>Delete</button>
+                        </div>
+                      </div>
                       <hr/>
                       <b>REPLIES</b>
-                      {
-                        authStore.getToken() ?
-                        (
-                          <div>
-                            <form onSubmit={addReply}>
-                              <input type="text" name="reply" onChange={handleChange} value={values.reply} placeholder="Reply to comment" />
-                              <button type="submit">reply</button>
-                            </form>
-                          </div>
-                        ) : ''
-                      }
                       {
                         comment && comment.replies.map((reply) => {
                           return (
@@ -103,15 +105,14 @@ const Comments = ({getComments, comments, replyToComment, isLoading}) => {
 
 const mapStateToProps = state => ({
   isLoading: state.comment.isLoading,
+  inLoading: state.comment.inLoading,
   comments: state.comment.comments,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getComments: () => dispatch(getComments()),
-  createComment: (comment) => dispatch(createComment(comment)),
-  updateComment: (commentId, comment) => dispatch(updateComment(commentId, comment)),
+  createComment: (comment, userId) => dispatch(createComment(comment, userId)),
   deleteComment: (commentId) => dispatch(deleteComment(commentId)),
-  replyToComment: (commentId, comment) => dispatch(replyToComment(commentId, comment)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Comments));

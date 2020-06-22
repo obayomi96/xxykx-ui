@@ -20,7 +20,7 @@ const Login = ({ login, history, isLoading }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = values;
-    login(
+    await login(
       {
         email,
         password,

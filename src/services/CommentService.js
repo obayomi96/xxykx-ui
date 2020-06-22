@@ -14,9 +14,11 @@ class CommentService {
     }
   }
 
-  createComment = async (comment) => {
+  createComment = async (comment, id) => {
     try {
-      const response = await http.post('comments', comment)
+      console.log('coment serv', comment)
+      const response = await http.post('comments', {content: comment, uderId: id})
+      console.log('sdr', response)
       if (response.status === 200) {
         const { data } = response.data
         return data

@@ -19,7 +19,7 @@ const Signup = ({signup, isLoading, history}) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const { name, email, password } = values;
-    signup({
+    await signup({
       name,
       email,
       password,

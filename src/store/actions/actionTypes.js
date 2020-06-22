@@ -8,3 +8,6 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const REPLY_COMMENT = 'REPLY_COMMENT';
+
+export const IN_LOADING = 'IN_LOADING';
+export const IN_NOT_LOADING = 'IN_NOT_LOADING';

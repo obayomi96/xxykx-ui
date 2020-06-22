@@ -6,6 +6,8 @@ import {
   REPLY_COMMENT,
   LOADING,
   NOT_LOADING,
+  IN_LOADING,
+  IN_NOT_LOADING,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -13,6 +15,7 @@ export const initialState = {
   singleComment: {},
   singleReply: {},
   isLoading: false,
+  inLoading: false,
 }
 
 export const commentReducer = (state = initialState, action) => {
@@ -49,6 +52,14 @@ export const commentReducer = (state = initialState, action) => {
     case NOT_LOADING:
       return {
         isLoading: false,
+      }
+      case IN_LOADING:
+      return {
+        inLoading: true,
+      }
+    case IN_NOT_LOADING:
+      return {
+        inLoading: false,
       }
     default:
       return state

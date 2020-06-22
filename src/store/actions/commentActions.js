@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 import {
   CREATE_COMMENT,
   GET_COMMENTS,
@@ -5,17 +7,19 @@ import {
   DELETE_COMMENT,
   REPLY_COMMENT,
   LOADING,
-  NOT_LOADING
+  NOT_LOADING,
+  IN_LOADING,
+  IN_NOT_LOADING,
 } from "./actionTypes"
 
-import CommentServices from '../../services/CommentService'
+import CommentService from '../../services/CommentService'
 
-const commentServices = new CommentServices()
+const commentService = new CommentService()
 
 export const getComments = () => async (dispatch) => {
   try {
     dispatch({type: LOADING})
-    const data = await commentServices.getComments()
+    const data = await commentService.getComments()
     if (data) {
       dispatch({
         type: GET_COMMENTS,
@@ -30,22 +34,36 @@ export const getComments = () => async (dispatch) => {
 }
 
 
-export const createComment = (payload) => async (dispatch) => {
+export const createComment = (comment, userId) => async (dispatch) => {
   try {
-    dispatch({type: LOADING})
-    const data = await commentServices.createComment(payload)
-    dispatch({
-      type: CREATE_COMMENT,
-      payload: data
-    })
+    console.log('coment acc', comment)
+    dispatch({type: IN_LOADING})
+    const data = await commentService.createComment(comment, userId)
+    console.log('com', data)
+    if (data) {
+      dispatch({
+        type: CREATE_COMMENT,
+        payload: data
+      })
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: `Comment created`,
+        showConfirmButton: false,
+        timer: 3000,
+        toast: true
+      });
+    dispatch({type: IN_NOT_LOADING})
+    }
   } catch(error) {
     throw error
   }
+  dispatch({type: IN_NOT_LOADING})
 }
 
 export const updateComment = (updatedData) => async (dispatch) => {
   try {
-    const data = await commentServices.updateComment(updatedData)
+    const data = await commentService.updateComment(updatedData)
     dispatch({
       type: UPDATE_COMMENT,
       payload: data
@@ -60,7 +78,7 @@ export const updateComment = (updatedData) => async (dispatch) => {
 export const deleteComment = (id) => async (dispatch) => {
   try {
     dispatch({type: LOADING})
-    const data = await commentServices.deleteComment(id)
+    const data = await commentService.deleteComment(id)
     dispatch({
       type: DELETE_COMMENT,
       payload: data
@@ -75,7 +93,7 @@ export const deleteComment = (id) => async (dispatch) => {
 export const replyToComment = (commentId) => async (dispatch) => {
   try {
     // dispatch({type: LOADING})
-    const data = await commentServices.replyToComment(commentId)
+    const data = await commentService.replyToComment(commentId)
     dispatch({
       type: REPLY_COMMENT,
       payload: data
