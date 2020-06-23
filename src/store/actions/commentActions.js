@@ -19,32 +19,32 @@ const commentService = new CommentService()
 
 export const getComments = () => async (dispatch) => {
   try {
-    dispatch({type: LOADING})
+    // dispatch({type: LOADING})
     const data = await commentService.getComments()
     if (data) {
       dispatch({
         type: GET_COMMENTS,
         payload: data
       })
-      return dispatch({type: NOT_LOADING})
     }
+    // return dispatch({type: NOT_LOADING})
   } catch (error) {
     throw error
   }
-  dispatch({type: NOT_LOADING})
+  // dispatch({type: NOT_LOADING})
 }
 
 export const getOneComment = (commentId) => async (dispatch) => {
   try {
-    dispatch({type: LOADING})
+    // dispatch({type: LOADING})
     const data = await commentService.getOneComment(commentId)
     if (data) {
       dispatch({
         type: GET_ONE_COMMENT,
         payload: data
       })
-      return dispatch({type: NOT_LOADING})
     }
+    // return dispatch({type: NOT_LOADING})
   } catch (error) {
     throw error
   }
@@ -78,31 +78,32 @@ export const createComment = (comment, userId) => async (dispatch) => {
 
 export const updateComment = (updatedData) => async (dispatch) => {
   try {
+    // dispatch({type: LOADING})
     const data = await commentService.updateComment(updatedData)
     dispatch({
       type: UPDATE_COMMENT,
       payload: data
     })
-    dispatch({type: NOT_LOADING})
+    // dispatch({type: NOT_LOADING})
   } catch(error) {
     throw error
   }
-  dispatch({type: NOT_LOADING})
+  // dispatch({type: NOT_LOADING})
 }
 
 export const deleteComment = (id) => async (dispatch) => {
   try {
-    dispatch({type: LOADING})
+    // dispatch({type: LOADING})
     const data = await commentService.deleteComment(id)
     dispatch({
       type: DELETE_COMMENT,
       payload: data
     })
-    dispatch({type: NOT_LOADING})
+    // dispatch({type: NOT_LOADING})
   } catch(error) {
     throw error
   }
-  dispatch({type: NOT_LOADING})
+  // dispatch({type: NOT_LOADING})
 }
 
 export const replyToComment = (commentId) => async (dispatch) => {

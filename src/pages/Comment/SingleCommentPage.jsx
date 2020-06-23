@@ -22,7 +22,7 @@ const SingleCommentCard = ({isLoading, inLoading, getOneComment, singleComment, 
       setComment(singleComment);
     }
     loadData();
-  }, [singleComment])
+  }, [singleComment, getOneComment, match])
 
   const handleChange = (event) => {
     event.persist()
@@ -32,7 +32,7 @@ const SingleCommentCard = ({isLoading, inLoading, getOneComment, singleComment, 
   return (
     <>
     {
-      !isLoading ?
+      isLoading ?
       (
         <div>
           <h2>LOADING...</h2>
@@ -41,7 +41,7 @@ const SingleCommentCard = ({isLoading, inLoading, getOneComment, singleComment, 
       (
         <>
         {
-          comment ?
+          comment && comment.user ?
           (
             <div style={{margin: '5px', padding: '5px', display: 'flex', justifyContent: 'space-evenly'}}>
               <h1>A Single comment page</h1>
@@ -68,10 +68,10 @@ const SingleCommentCard = ({isLoading, inLoading, getOneComment, singleComment, 
                   <hr/>
                   <b>REPLIES</b>
                   { 
-                    comment.replies && comment.replies.map((reply) => {
+                    comment && comment.replies.map((reply, index) => {
                       return (
                         <div key={reply.id}>
-                          <p>{reply.content}</p>
+                          <p><span>{index + 1}. </span>{reply.content}</p>
                         </div>
                       )
                     })

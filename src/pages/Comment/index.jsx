@@ -40,7 +40,7 @@ const Comments = ({getComments, comments, inLoading, isLoading}) => {
   return (
     <>
     {
-      !isLoading ?
+      isLoading ?
       (
         <div>
           <h2>LOADING...</h2>
@@ -49,6 +49,7 @@ const Comments = ({getComments, comments, inLoading, isLoading}) => {
       (
         <div style={{margin: '5px', padding: '5px', display: 'flex', justifyContent: 'space-evenly'}}>
           <h1>Comments page</h1>
+          {commentsList.length !== 0 ? <small>{commentsList.length} comments</small> : ''}
           {
             authStore.getToken() ?
             (
@@ -83,10 +84,10 @@ const Comments = ({getComments, comments, inLoading, isLoading}) => {
                       <hr/>
                       <b>REPLIES</b>
                       {
-                        comment && comment.replies.map((reply) => {
+                        comment && comment.replies.map((reply, index) => {
                           return (
                             <div key={reply.id}>
-                              <p>{reply.content}</p>
+                              <p><span>{index + 1}. </span>{reply.content}</p>
                             </div>
                           )
                         })
