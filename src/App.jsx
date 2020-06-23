@@ -10,6 +10,7 @@ import Signup from './pages/Auth/Signup'
 import Comment from './pages/Comment'
 import Error404 from './pages/Error404'
 import Header from './components/Header'
+import SingleCommentPage from './pages/Comment/SingleCommentPage'
 
 authStore.confirmAuth()
 
@@ -21,6 +22,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact component={Comment} path='/comments' />
+          <Route exact component={SingleCommentPage} path='/comments/:comment_id' />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
           <Route component={Error404} />

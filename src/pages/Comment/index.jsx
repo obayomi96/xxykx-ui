@@ -19,7 +19,6 @@ const Comments = ({getComments, comments, inLoading, isLoading}) => {
     async function loadData() {
       await getComments();
     }
-
     if (comments) {
       setCommentsList(comments)
     }
@@ -44,7 +43,6 @@ const Comments = ({getComments, comments, inLoading, isLoading}) => {
       !isLoading ?
       (
         <div>
-          <h1>Comments page</h1>
           <h2>LOADING...</h2>
         </div>
       ) :
@@ -69,14 +67,17 @@ const Comments = ({getComments, comments, inLoading, isLoading}) => {
                   <div style={{margin: '5px', padding: '5px', border: '1px solid #ddd', height: 'auto', boxSizing: 'border-box'}} key={comment.id}>
                     <div>
                       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <div>
+                        <div style={{display: 'block'}}>
                           <p>Comment : <b>{comment.content}</b></p>
-                          <p>Author name : {comment.user && comment.user.name}</p>
-                          <p>Author email : {comment.user && comment.user.email}</p>
+                          <div style={{display: 'flex', flexDirection: 'column'}}>
+                            <small>Author name : {comment.user && comment.user.name}</small>
+                            <small>Author email : {comment.user && comment.user.email}</small>
+                          </div>
                         </div>
                         <div>
-                          <button>View</button>
-                          <button>Delete</button>
+                          <Link to={`/comments/${comment.id}`}>
+                            <button>View</button>
+                          </Link>
                         </div>
                       </div>
                       <hr/>

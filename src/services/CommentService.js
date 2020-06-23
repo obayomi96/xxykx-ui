@@ -14,11 +14,21 @@ class CommentService {
     }
   }
 
+  getOneComment = async (commentId) => {
+    try {
+      const response = await http.get(`comments/${commentId}`);
+      if (response.status === 200) {
+        const { comment } = response.data
+        return comment
+      }
+    } catch(error) {
+      return error
+    }
+  }
+
   createComment = async (comment, id) => {
     try {
-      console.log('coment serv', comment)
       const response = await http.post('comments', {content: comment, uderId: id})
-      console.log('sdr', response)
       if (response.status === 200) {
         const { data } = response.data
         return data

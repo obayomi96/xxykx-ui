@@ -4,6 +4,7 @@ import {
   UPDATE_COMMENT,
   DELETE_COMMENT,
   REPLY_COMMENT,
+  GET_ONE_COMMENT,
   LOADING,
   NOT_LOADING,
   IN_LOADING,
@@ -24,6 +25,11 @@ export const commentReducer = (state = initialState, action) => {
       return {
         ...state,
         comments: action.payload,
+      }
+    case GET_ONE_COMMENT:
+      return {
+        ...state,
+        singleComment: action.payload,
       }
     case CREATE_COMMENT:
       return {

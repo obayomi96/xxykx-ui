@@ -6,6 +6,7 @@ import {
   UPDATE_COMMENT,
   DELETE_COMMENT,
   REPLY_COMMENT,
+  GET_ONE_COMMENT,
   LOADING,
   NOT_LOADING,
   IN_LOADING,
@@ -25,7 +26,7 @@ export const getComments = () => async (dispatch) => {
         type: GET_COMMENTS,
         payload: data
       })
-      dispatch({type: NOT_LOADING})
+      return dispatch({type: NOT_LOADING})
     }
   } catch (error) {
     throw error
@@ -33,13 +34,27 @@ export const getComments = () => async (dispatch) => {
   dispatch({type: NOT_LOADING})
 }
 
+export const getOneComment = (commentId) => async (dispatch) => {
+  try {
+    dispatch({type: LOADING})
+    const data = await commentService.getOneComment(commentId)
+    if (data) {
+      dispatch({
+        type: GET_ONE_COMMENT,
+        payload: data
+      })
+      return dispatch({type: NOT_LOADING})
+    }
+  } catch (error) {
+    throw error
+  }
+  dispatch({type: NOT_LOADING})
+}
 
 export const createComment = (comment, userId) => async (dispatch) => {
   try {
-    console.log('coment acc', comment)
     dispatch({type: IN_LOADING})
     const data = await commentService.createComment(comment, userId)
-    console.log('com', data)
     if (data) {
       dispatch({
         type: CREATE_COMMENT,
