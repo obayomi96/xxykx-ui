@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import { InternetStatus } from 'react-internet-status'
 import authStore from './utils/auth'
 
 // import './assets/sass/index.scss';
@@ -18,6 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className='App-container'>
+        <InternetStatus />
         <Header />
         <Switch>
           <Route exact path='/' component={Home} />
