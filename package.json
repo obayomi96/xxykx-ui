@@ -16,7 +16,8 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "sweetalert2": "^9.15.1"
+    "sweetalert2": "^9.15.1",
+    "react-internet-status": "^1.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,7 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "react-internet-status": "^1.0.7"
-  }
+  "devDependencies": {}
 }

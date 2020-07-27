@@ -19,7 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className='App-container'>
-        <InternetStatus />
+        <InternetStatus background="#000" textColor="#ddd" />
         <Header />
         <Switch>
           <Route exact path='/' component={Home} />
